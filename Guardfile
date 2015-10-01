@@ -1,3 +1,4 @@
+clearing:on
 
 guard :rspec, cmd: "bundle exec rspec --color" do
 

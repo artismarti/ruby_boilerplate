@@ -31,7 +31,6 @@ class VendingMachine
         return_hash[:valid][:coins][coin] = 1
       end
     end
-
     return_hash[:valid][:coins].each do |k, v|
       return_hash[:valid][:total_value] += k.to_i * v.to_i
     end
@@ -78,6 +77,22 @@ class VendingMachine
     dispense_product(product)
   end
 
+  # show product list to user
+  def list_products
+    @products.map { |p| "#{p.code}:  #{p.name} costs £#{p.price / 100.round(2)}" }
+  end
+
+  # check for stock and return price
+  def check_for_product(product)
+    if @products.map(&:name).include?(product)
+      price = @products.select { |p| p.name == product }.map(&:price)[0]
+      puts "Please pay #{price} cents for the #{product}"
+      1
+    else
+      puts 'Product is unavailable'
+      0
+    end
+  end
 
   # see how much cash is left in the machine
   def current_coin_total

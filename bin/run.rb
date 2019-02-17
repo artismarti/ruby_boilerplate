@@ -14,3 +14,6 @@ coins.each do |c|
 end
 
 vending_machine = VendingMachine.new(all_products, all_coins)
+
+new_cli = CommandLineInterface.new(vending_machine)
+new_cli.run

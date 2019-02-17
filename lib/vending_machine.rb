@@ -38,6 +38,16 @@ class VendingMachine
     return_hash
   end
 
+  # Accept all valid coins from user
+  def accept_coins(coins_hash)
+      coins_hash[:valid][:coins].each do |k, v|
+        while v > 0
+          @coins << Coin.new(k)
+          v -= 1
+        end
+      end
+    end
+    
   # see how much cash is left in the machine
   def current_coin_total
     @coins.map(&:value).reduce { |sum, num| sum += num }

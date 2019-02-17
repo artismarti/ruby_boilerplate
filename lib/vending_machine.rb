@@ -6,8 +6,8 @@ class VendingMachine
     @products = products
   end
 
-# Create a hash with valid and invalid coins.
-# TBD Refactor
+  # Create a hash with valid and invalid coins.
+  # TBD Refactor
   def inspect_input_coins(coins, valid_denominations)
     return_hash = {
       valid: {
@@ -40,14 +40,26 @@ class VendingMachine
 
   # Accept all valid coins from user
   def accept_coins(coins_hash)
-      coins_hash[:valid][:coins].each do |k, v|
-        while v > 0
-          @coins << Coin.new(k)
-          v -= 1
-        end
+    coins_hash[:valid][:coins].each do |k, v|
+      while v > 0
+        @coins << Coin.new(k)
+        v -= 1
       end
     end
-    
+  end
+
+  # Dispense product to User
+  def dispense_product(product)
+    if @products.map(&:name).include?(product)
+      @products.delete(product)
+      puts "Enjoy your #{product}"
+      1
+    else
+      puts "Sorry the #{product} is no longer available."
+      0
+    end
+  end
+
   # see how much cash is left in the machine
   def current_coin_total
     @coins.map(&:value).reduce { |sum, num| sum += num }

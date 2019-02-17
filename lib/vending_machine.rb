@@ -6,6 +6,23 @@ class VendingMachine
     @products = products
   end
 
+  # show product list to user
+  def list_products
+    @products.map { |p| "#{p.code}: #{p.name} costs £#{p.price / 100.round(2)}" }
+  end
+
+  # check for stock and return price
+  def check_for_product(product)
+    if @products.map(&:name).include?(product)
+      price = @products.select { |p| p.name == product }.map(&:price)[0]
+      puts "Please pay #{price} cents for the #{product}"
+      1
+    else
+      puts 'Product is unavailable'
+      0
+    end
+  end
+
   # Create a hash with valid and invalid coins.
   # TBD Refactor
   def inspect_input_coins(coins, valid_denominations)
@@ -89,23 +106,6 @@ class VendingMachine
       dispense_product(product)
     else
       return 0
-    end
-  end
-
-  # show product list to user
-  def list_products
-    @products.map { |p| "#{p.code}:  #{p.name} costs £#{p.price / 100.round(2)}" }
-  end
-
-  # check for stock and return price
-  def check_for_product(product)
-    if @products.map(&:name).include?(product)
-      price = @products.select { |p| p.name == product }.map(&:price)[0]
-      puts "Please pay #{price} cents for the #{product}"
-      1
-    else
-      puts 'Product is unavailable'
-      0
     end
   end
 

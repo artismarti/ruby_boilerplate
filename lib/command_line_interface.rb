@@ -6,6 +6,12 @@ class CommandLineInterface
     @machine = vending_machine
   end
 
+  def run
+    system('clear')
+    greet
+    intro
+  end
+
   def greet
     hello = Artii::Base.new font: 'slant'
     puts hello.asciify('Eat Something')
@@ -19,4 +25,5 @@ class CommandLineInterface
       puts Rainbow(k).black.underline.bg(:yellow) + " #{v}"
     end
   end
+
 end

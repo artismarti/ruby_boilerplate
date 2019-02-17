@@ -77,6 +77,21 @@ class VendingMachine
     dispense_product(product)
   end
 
+  # check if price paid is sufficient
+  def paid_amount_sufficient?(product, coins_hash)
+    expected_price = @products.select { |p| p.name == product }.map(&:price)[0]
+    change_due = coins_hash[:valid][:total_value] - expected_price
+    if change_due > 0
+      accept_coins(coins_hash)
+      dispense_change(change_due, product)
+    elsif change_due.zero?
+      accept_coins(coins_hash)
+      dispense_product(product)
+    else
+      return 0
+    end
+  end
+
   # show product list to user
   def list_products
     @products.map { |p| "#{p.code}:  #{p.name} costs £#{p.price / 100.round(2)}" }

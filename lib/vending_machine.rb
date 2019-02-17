@@ -60,6 +60,25 @@ class VendingMachine
     end
   end
 
+  # Return any change due to user
+  # This greedy algorithm was taken from here: http://rubyquiz.com/quiz154.html
+  def dispense_change(change_due, product)
+    coins = @coins.map(&:value)
+    change = coins.sort
+                  .reverse
+                  .map do |coin|
+      f = change_due / coin
+      change_due %= coin
+      Array.new(f) { coin }
+    end
+    change.flatten.each do |ch|
+      @coins.delete(@coins.find { |c| c.value == ch })
+    end
+    puts "Here are the coins due to you: #{change.flatten}"
+    dispense_product(product)
+  end
+
+
   # see how much cash is left in the machine
   def current_coin_total
     @coins.map(&:value).reduce { |sum, num| sum += num }

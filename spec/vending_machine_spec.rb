@@ -23,4 +23,16 @@ describe VendingMachine do
       @vending_machine.current_coin_total.should eql 238
     end
   end
+
+  describe 'check_for_product' do
+    it 'returns 0 if Product is not available' do
+      @vending_machine.check_for_product('Mangoes').should eql 0
+    end
+  end
+
+  describe 'check_for_product' do
+    it 'returns 1 if Product is not available' do
+      @vending_machine.check_for_product('Twix').should eql 1
+    end
+  end
 end

@@ -1,3 +1,5 @@
+The boilerplate Ruby project files were forked from: https://github.com/cnak/ruby_boilerplate
+
 # VENDING MACHINE
 Design a vending machine using ruby. The vending machine should perform as the points below
 

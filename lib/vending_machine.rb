@@ -1,3 +1,5 @@
+require 'pry'
+
 class VendingMachine
   attr_accessor :products, :coins
 
@@ -67,7 +69,7 @@ class VendingMachine
   # Dispense product to User
   def dispense_product(product)
     if @products.map(&:name).include?(product)
-      @products.delete(@products.find{|p| p.name == product})
+      @products.delete(@products.find{|p| p.name == product.capitalize})
       puts "Enjoy your #{product}"
       1
     else
@@ -96,7 +98,7 @@ class VendingMachine
 
   # check if price paid is sufficient
   def paid_amount_sufficient?(product, coins_hash)
-    expected_price = @products.select { |p| p.name == product }.map(&:price)[0]
+    expected_price = @products.select { |p| p.name == product.capitalize }.map(&:price)[0]
     change_due = coins_hash[:valid][:total_value] - expected_price
     if change_due > 0
       accept_coins(coins_hash)

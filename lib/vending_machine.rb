@@ -8,14 +8,14 @@ class VendingMachine
 
   # show product list to user
   def list_products
-    @products.map { |p| "#{p.code}: #{p.name} costs £#{p.price / 100.round(2)}" }
+    @products.map { |p| "#{p.name} costs £#{p.price / 100.round(2)}" }
   end
 
   # check for stock and return price
   def check_for_product(product)
-    if @products.map(&:name).include?(product)
-      price = @products.select { |p| p.name == product }.map(&:price)[0]
-      puts "Please pay #{price} cents for the #{product}"
+    if @products.map(&:name).include?(product.capitalize)
+      price = @products.select { |p| p.name == product.capitalize }.map(&:price)[0]
+      puts "Please pay #{price} pennies for the #{product.upcase}"
       1
     else
       puts 'Product is unavailable'
@@ -83,14 +83,14 @@ class VendingMachine
     change = coins.sort
                   .reverse
                   .map do |coin|
-      f = change_due / coin
+      number_of_coins = change_due / coin
       change_due %= coin
-      Array.new(f) { coin }
+      Array.new(number_of_coins) { coin }
     end
     change.flatten.each do |ch|
       @coins.delete(@coins.find { |c| c.value == ch })
     end
-    puts "Here are the coins due to you: #{change.flatten}"
+    puts "Here are the coins due to you: #{change.flatten} pennies"
     dispense_product(product)
   end
 
@@ -105,8 +105,13 @@ class VendingMachine
       accept_coins(coins_hash)
       dispense_product(product)
     else
-      return change_due
+      return -change_due
     end
+  end
+
+  def reload_machine(products, coins)
+    @products += products
+    @coins += coins
   end
 
   # see how much cash is left in the machine

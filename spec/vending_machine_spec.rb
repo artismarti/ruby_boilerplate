@@ -5,17 +5,17 @@ require_relative '../lib/vending_machine'
 
 describe VendingMachine do
   before :each do
-    all_products = [Product.new(1, 'Apple', 12),
+    @all_products = [Product.new(1, 'Apple', 12),
                     Product.new(2, 'Carrot', 23),
                     Product.new(3, 'Pineapple', 44),
                     Product.new(4, 'Twix', 329),
                     Product.new(5, 'Banana', 21)]
     coins = [2, 1, 1, 1, 1, 10, 2, 20, 200]
-    all_coins = []
+    @all_coins = []
     coins.each do |c|
-      all_coins << Coin.new(c)
+      @all_coins << Coin.new(c)
     end
-    @vending_machine = VendingMachine.new(all_products, all_coins)
+    @vending_machine = VendingMachine.new(@all_products, @all_coins)
   end
 
   describe 'current_coin_total ' do
@@ -33,6 +33,16 @@ describe VendingMachine do
   describe 'check_for_product' do
     it 'returns 1 if Product is not available' do
       @vending_machine.check_for_product('Twix').should eql 1
+    end
+  end
+  describe 'reload_machine' do
+    it 'reloads machine with more products & coins' do
+      prev_coin_count = @vending_machine.coins.count
+      prev_product_count = @vending_machine.products.count
+      @vending_machine.reload_machine(@all_products, @all_coins)
+      @vending_machine.coins.count.should eql prev_coin_count + @all_coins.count
+      @vending_machine.products.count.should eql prev_product_count + @all_products.count
+
     end
   end
 end

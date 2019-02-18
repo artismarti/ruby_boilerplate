@@ -1,18 +1,13 @@
-#Ruby project boilerplate
+The boilerplate Ruby project files were forked from: https://github.com/cnak/ruby_boilerplate
 
-This is a Ruby boilerplate that comes with RSpec and automated test functionality setup(uses Guard)
+# VENDING MACHINE
+Design a vending machine using ruby. The vending machine should perform as the points below
 
-I'm a fan of test driven development, in order to speed up my turnaround time from writing functionality to testing the functionality, I use Guard(https://github.com/guard/guard) tool to automatically run my test any time I make a change.
-
-This greatly speeds up my development time and hopefully it'll help you too.
-
-##Quick start
-
-Clone the git repo 'https://github.com/cnak/ruby_boilerplate.git'
-
-##Instructions
-
-1. Clone the repo
-2. Run 'bundle exec install'
-3. Run 'guard' command in the terminal to start watching changes
-4. Place your spec files within the spec folder and any functionality code with the 'lib' folder
+* Once an item is selected and the appropriate amount of money is inserted, the vending
+machine should return the correct product
+* It should also return change if too much money is provided, or ask for more money if
+insufficient funds have been inserted
+* The machine should take an initial load of products and change. The change will be of
+denominations 1p, 2p, 5p, 10p, 20p, 50p, £1, £2
+* There should be a way of reloading either products or change at a later point
+* The machine should keep track of the products and change that it contains

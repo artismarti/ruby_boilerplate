@@ -67,7 +67,7 @@ class VendingMachine
   # Dispense product to User
   def dispense_product(product)
     if @products.map(&:name).include?(product)
-      @products.delete(product)
+      @products.delete(@products.find{|p| p.name == product})
       puts "Enjoy your #{product}"
       1
     else
@@ -105,7 +105,7 @@ class VendingMachine
       accept_coins(coins_hash)
       dispense_product(product)
     else
-      return 0
+      return change_due
     end
   end
 

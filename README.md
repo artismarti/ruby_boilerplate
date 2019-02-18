@@ -11,3 +11,26 @@ insufficient funds have been inserted
 denominations 1p, 2p, 5p, 10p, 20p, 50p, £1, £2
 * There should be a way of reloading either products or change at a later point
 * The machine should keep track of the products and change that it contains
+
+
+# Classes
+
+## Vending Machine
+
+## Product
+
+## Coins
+
+## Command Line Interface
+
+
+# How To Run The App
+
+* Clone the repo
+* `bundle install`
+* In terminal type `ruby bin/run.rb`
+
+# How To Run The Tests
+* `rspec spec`
+OR
+* `guard`

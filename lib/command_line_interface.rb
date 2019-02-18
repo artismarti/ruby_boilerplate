@@ -84,6 +84,8 @@ class CommandLineInterface
     else
       coins << more_coins
       coins = coins.flatten
+      change_due = @machine.paid_amount_sufficient?(choice, @machine.inspect_input_coins(coins, @machine.coins[0].class::DENOMINATIONS))
+      take_more_money(coins, change_due, choice) if change_due > 0
     end
   end
 end

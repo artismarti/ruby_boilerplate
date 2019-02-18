@@ -1,5 +1,6 @@
 require 'rainbow'
 require 'artii'
+require 'pry'
 
 class CommandLineInterface
   def initialize(vending_machine)
@@ -43,9 +44,9 @@ class CommandLineInterface
       when 'X'
         goodbye = Artii::Base.new font: 'slant'
         puts goodbye.asciify('Bye!')
-        break
+        exec("exit\n")
       else
-        puts 'These are not the snacks you are looking for. Please input the name of the snack'
+        puts 'These are not the snacks you are looking for. Please input the snack name.'
       end
     end
   end
@@ -67,19 +68,18 @@ class CommandLineInterface
     puts '2 20 10'
     coins ||= gets.chomp.split.map(&:to_i)
     change_due = @machine.paid_amount_sufficient?(choice, @machine.inspect_input_coins(coins, @machine.coins[0].class::DENOMINATIONS))
-    take_more_money(coins, change_due, choice) if change_due < 0
+    take_more_money(coins, change_due, choice) if change_due > 0
     puts 'Thanks for your purchase, snacker!'
     [intro, menu_setting]
   end
 
   def take_more_money(coins, change_due, choice)
     puts "Please pay #{change_due} pennies more:"
-    prod_price = coins.reduce(0) { |s, n| s += n } + change_due
     more_coins = gets.chomp.split.map(&:to_i)
     coins << more_coins
     coins = coins.flatten
     change_due -=  more_coins.reduce(0) { |s, n| s += n }
-    if prod_price - coins.reduce(0) { |s, n| s += n } > 0
+    if change_due > 0
       take_more_money(coins, change_due, choice)
     else
       coins << more_coins

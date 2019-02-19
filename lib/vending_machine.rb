@@ -94,6 +94,7 @@ class VendingMachine
     end
     puts "Here are the coins due to you: #{change.flatten} pennies"
     dispense_product(product)
+    change.flatten
   end
 
   # check if price paid is sufficient
